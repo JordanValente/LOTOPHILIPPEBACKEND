@@ -53,6 +53,13 @@ async function startServer() {
     res.json({ message: 'API Loto Association OK' });
   });
 
+  // Route publique pour l'affichage des événements sur le site
+  app.get("/api/events-public", async (req, res) => {
+    const db = await initDb();
+    const [rows] = await db.query("SELECT * FROM events ORDER BY date ASC");
+    res.json(rows);
+  });
+
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
