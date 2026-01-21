@@ -58,4 +58,3 @@ export function membersRouter(db) {
 
   return router;
 }
-gi
