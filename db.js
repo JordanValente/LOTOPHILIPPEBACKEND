@@ -1,13 +1,11 @@
-ddimport mysql from 'mysql2/promise';
-
-
+import mysql from 'mysql2/promise';
 
 export async function initDb() {
   const db = await mysql.createPool({
-    host: process.env.DB_HOST || 'mysql-projetloto.alwaysdata.net',
-    user: process.env.DB_USER || 'projetloto_1',   // Vérifie ton user exact !
-    password: process.env.DB_PASS || '1234AZERTYF',
-    database: process.env.DB_NAME || 'projetloto_1', // Vérifie ton nom de base !
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME,
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
@@ -18,7 +16,8 @@ export async function initDb() {
 }
 
 
-  await db.exec(`
+
+await db.exec(`
     CREATE TABLE IF NOT EXISTS events (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       title TEXT NOT NULL,
