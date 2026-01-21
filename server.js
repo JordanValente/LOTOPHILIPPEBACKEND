@@ -11,16 +11,22 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-const db = await initDb();
+async function startServer() {
+  const db = await initDb();
 
-app.use('/api/events', eventsRouter(db));
-app.use('/api/reservations', reservationsRouter(db));
-app.use('/api/members', membersRouter(db));
+  app.use('/api/events', eventsRouter(db));
+  app.use('/api/reservations', reservationsRouter(db));
+  app.use('/api/members', membersRouter(db));
 
-app.get('/', (req, res) => {
-  res.json({ message: 'API Loto Association OK' });
-});
+  app.get('/', (req, res) => {
+    res.json({ message: 'API Loto Association OK' });
+  });
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
+startServer().catch(err => {
+  console.error("Erreur au démarrage du serveur :", err);
 });
